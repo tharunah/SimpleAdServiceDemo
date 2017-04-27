@@ -1,5 +1,6 @@
 package com.tharun.rest.ad.config;
 
+import com.tharun.rest.ad.controller.ControllerAdvisor;
 import com.tharun.rest.ad.error.RestClientErrorHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -13,6 +14,7 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.http.converter.support.AllEncompassingFormHttpMessageConverter;
 import org.springframework.http.converter.xml.SourceHttpMessageConverter;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
@@ -25,6 +27,7 @@ import java.util.List;
 @ComponentScan(basePackages = {"com.tharun.rest.ad"},
         excludeFilters = {@ComponentScan.Filter(Configuration.class),
                 @ComponentScan.Filter(Controller.class),
+                @ComponentScan.Filter(ControllerAdvice.class)
         })
 public class MainConfig {
 
