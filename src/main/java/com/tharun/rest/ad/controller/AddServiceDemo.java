@@ -3,8 +3,6 @@ package com.tharun.rest.ad.controller;
 import com.tharun.rest.ad.model.AdCampaign;
 import com.tharun.rest.ad.service.AdCampaignService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 /**

@@ -8,7 +8,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.http.*;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -17,6 +16,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
 import java.util.Arrays;
+import java.util.NoSuchElementException;
 
 /**
  * Created by tharu on 4/27/2017.
@@ -43,16 +43,19 @@ public class SpringRestTestClient {
     @Test
     public void findAdCampaignbyIdTest() {
         ResponseEntity<AdCampaign> response = restTemplate.exchange(REST_SERVICE_URI + "/ad/12", HttpMethod.GET, entity, AdCampaign.class);
-        if (!(response.getStatusCode() == HttpStatus.EXPECTATION_FAILED)) {
-            AdCampaign adCampaign = response.getBody();
-            Assert.assertEquals("12", adCampaign.getPartnerId());
-        }
+        AdCampaign adCampaign = response.getBody();
+        Assert.assertEquals("12", adCampaign.getPartnerId());
+    }
 
+    @Test(expected = NoSuchElementException.class)
+    public void findAdCampaignbyIdTest_FailCase() {
+        ResponseEntity<AdCampaign> response = restTemplate.exchange(REST_SERVICE_URI + "/ad/12", HttpMethod.GET, entity, AdCampaign.class);
+        Assert.assertFalse(response.getBody() instanceof AdCampaign);
     }
 
     @Test
     public void createAdCampignTest() {
-        AdCampaign adCampaign = new AdCampaign("12", 999999, "test_ad_campaign");
+        AdCampaign adCampaign = new AdCampaign("12", 2345, "test_ad_campaign");
         URI uri = restTemplate.postForLocation(REST_SERVICE_URI + "/ad", adCampaign, AdCampaign.class);
 
         ResponseEntity<AdCampaign> response = restTemplate.exchange(REST_SERVICE_URI + "/ad/12", HttpMethod.GET, entity, AdCampaign.class);
