@@ -1,6 +1,5 @@
 package com.tharun.rest.ad.model;
 
-import java.sql.Date;
 import java.sql.Timestamp;
 
 /**

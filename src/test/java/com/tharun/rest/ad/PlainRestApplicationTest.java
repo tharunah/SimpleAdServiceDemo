@@ -14,7 +14,6 @@ public class PlainRestApplicationTest {
 
     /* GET */
     private static void getAdCampign(){
-        System.out.println("Testing getUser API----------");
         RestTemplate restTemplate = new RestTemplate();
         AdCampaign adCampaign = restTemplate.getForObject(REST_SERVICE_URI+"/ad/1", AdCampaign.class);
         System.out.println(adCampaign);
@@ -22,7 +21,6 @@ public class PlainRestApplicationTest {
 
     /* POST */
     private static void createAdCampaign() {
-        System.out.println("Testing create User API----------");
         RestTemplate restTemplate = new RestTemplate();
         AdCampaign adCampaign = new AdCampaign("123ed",127,"test ad for this campaign");
         URI uri = restTemplate.postForLocation(REST_SERVICE_URI+"/ad", adCampaign, AdCampaign.class);
