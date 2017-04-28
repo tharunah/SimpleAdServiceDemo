@@ -60,6 +60,6 @@ Run the moven below command build and deply the application in jetty server.
 
 ``` mvn jetty::run ``` 
 
-To buils war file 
+To build war file 
 ```mvn clean install ```
 
