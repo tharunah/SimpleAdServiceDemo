@@ -1,24 +1,37 @@
 package com.tharun.rest.ad.model;
 
-import java.sql.Timestamp;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.time.Instant;
 
 /**
- * Created by tharu on 4/27/2017.
+ * Ad Campaign model
+ * Represents an advertising campaign with partner ID, duration, and content.
+ *
+ * @since 1.0
  */
 public class AdCampaign {
-    private String partnerId;
-    private int duration;
-    private String adContent;
-    private Timestamp timestamp;
 
-    public AdCampaign(){
-      this.timestamp = new Timestamp(System.currentTimeMillis());
+    @JsonProperty
+    private String partnerId;
+
+    @JsonProperty
+    private int duration;
+
+    @JsonProperty
+    private String adContent;
+
+    @JsonProperty
+    private long timestamp;
+
+    public AdCampaign() {
+        this.timestamp = Instant.now().toEpochMilli();
     }
+
     public AdCampaign(String partnerId, int duration, String adContent) {
         this.partnerId = partnerId;
         this.duration = duration;
         this.adContent = adContent;
-        this.timestamp = new Timestamp(System.currentTimeMillis());
+        this.timestamp = Instant.now().toEpochMilli();
     }
 
     public String getPartnerId() {
@@ -33,7 +46,39 @@ public class AdCampaign {
         return adContent;
     }
 
-    public Timestamp getTimestamp() {
+    public long getTimestamp() {
         return timestamp;
+    }
+
+    @Override
+    public String toString() {
+        return "AdCampaign{" +
+                "partnerId='" + partnerId + '\'' +
+                ", duration=" + duration +
+                ", adContent='" + adContent + '\'' +
+                ", timestamp=" + timestamp +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        AdCampaign that = (AdCampaign) o;
+
+        if (duration != that.duration) return false;
+        if (timestamp != that.timestamp) return false;
+        if (!partnerId.equals(that.partnerId)) return false;
+        return adContent.equals(that.adContent);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = partnerId.hashCode();
+        result = 31 * result + duration;
+        result = 31 * result + adContent.hashCode();
+        result = 31 * result + (int) (timestamp ^ (timestamp >>> 32));
+        return result;
     }
 }

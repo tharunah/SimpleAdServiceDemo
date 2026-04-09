@@ -6,22 +6,38 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * Created by tharu on 4/27/2017.
+ * REST Controller for Ad Campaign operations.
+ * Handles HTTP requests for creating and retrieving ad campaigns.
+ *
+ * @since 1.0
  */
 @RestController
 public class AddServiceDemo {
 
     @Autowired
-    AdCampaignService adCampaignService;
+    private AdCampaignService adCampaignService;
 
-    @RequestMapping(method = RequestMethod.POST, value = "/ad")
+    /**
+     * Create a new ad campaign via HTTP POST.
+     *
+     * @param adCampaign the campaign data
+     * @return the created campaign
+     */
+    @PostMapping("/ad")
     public AdCampaign createAdCampaign(@RequestBody final AdCampaign adCampaign) {
         adCampaignService.saveAdCampaign(adCampaign);
         return adCampaign;
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/ad/{partnerId}")
+    /**
+     * Get an active ad campaign for a partner via HTTP GET.
+     *
+     * @param partnerId the partner identifier
+     * @return the active campaign
+     * @throws java.util.NoSuchElementException if no active campaign exists
+     */
+    @GetMapping("/ad/{partnerId}")
     public AdCampaign getAdCampaign(@PathVariable("partnerId") String partnerId) {
-        return adCampaignService.fidByPartnerId(partnerId);
+        return adCampaignService.findByPartnerId(partnerId);
     }
 }

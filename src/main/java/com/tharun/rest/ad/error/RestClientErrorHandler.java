@@ -8,33 +8,29 @@ import org.springframework.web.client.ResponseErrorHandler;
 import java.io.IOException;
 
 /**
- * Created by tharu on 4/27/2017.
+ * Custom error handler for REST client calls.
+ * Handles HTTP errors from RestTemplate requests.
+ *
+ * @since 1.0
  */
 @Component
 public class RestClientErrorHandler implements ResponseErrorHandler {
-
 
     public RestClientErrorHandler() {
         super();
     }
 
     @Override
-    public boolean hasError(ClientHttpResponse clienthttpresponse) throws IOException {
-
-        if (clienthttpresponse.getStatusCode() != HttpStatus.OK) {
-
-            if (clienthttpresponse.getStatusCode() == HttpStatus.FORBIDDEN) {
-
-                return true;
-            }
-        }
-        return false;
+    public boolean hasError(ClientHttpResponse response) throws IOException {
+        return !response.getStatusCode().is2xxSuccessful();
     }
 
     @Override
     public void handleError(ClientHttpResponse response) throws IOException {
         if (response.getStatusCode() == HttpStatus.FORBIDDEN) {
-
+            throw new IllegalAccessError("Access forbidden: " + response.getStatusText());
+        } else if (!response.getStatusCode().is2xxSuccessful()) {
+            throw new RuntimeException("HTTP Error: " + response.getStatusCode() + " - " + response.getStatusText());
         }
 
     }

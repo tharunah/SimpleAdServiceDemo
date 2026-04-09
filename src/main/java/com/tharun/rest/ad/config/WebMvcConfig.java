@@ -10,7 +10,10 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import java.util.List;
 
 /**
- * Created by tharu on 4/27/2017.
+ * Web MVC configuration.
+ * Enables annotation-driven Web MVC and configures JSON message converters.
+ *
+ * @since 1.0
  */
 @Configuration
 @EnableWebMvc

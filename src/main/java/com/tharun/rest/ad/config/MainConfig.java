@@ -6,7 +6,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 
 /**
- * Created by tharu on 4/27/2017.
+ * Main application configuration.
+ * Enables component scanning for services and beans (excluding controllers).
+ *
+ * @since 1.0
  */
 @Configuration
 @ComponentScan(basePackages = {"com.tharun.rest.ad"},

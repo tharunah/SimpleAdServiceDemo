@@ -8,14 +8,17 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
 
 /**
- * Created by tharu on 4/27/2017.
+ * Client configuration for REST template.
+ * Sets up RestTemplate with custom error handling for HTTP clients.
+ *
+ * @since 1.0
  */
 @Configuration
 @ComponentScan (basePackages = "com.tharun.rest.ad.error")
 public class ClientConfig {
 
     @Autowired
-    RestClientErrorHandler restClientErrorHandler;
+    private RestClientErrorHandler restClientErrorHandler;
 
     @Bean
     public RestTemplate getRestTemplate() {
